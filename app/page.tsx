@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useChat } from "ai/react";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -8,17 +9,28 @@ import { Label } from "@/components/ui/label"
 export default function CryptoVibeCheck() {
   const [projectName, setProjectName] = useState("")
   const [response, setResponse] = useState("")
+  const { messages, append, isLoading } = useChat();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (projectName.trim() === "") {
-      setResponse("Please enter a project name.")
+      setResponse("Please enter a valid project name.")
       return
     }
-    // Simulate a vibe check response
+    // Random example vibes
+    {/*
     const vibes = ["bullish", "bearish", "neutral", "to the moon", "HODL"]
     const randomVibe = vibes[Math.floor(Math.random() * vibes.length)]
     setResponse(`The vibe for ${projectName} is: ${randomVibe}!`)
+    */}
+    // receive response from API
+    append({
+      role: "user",
+      content: `Provide a 2-paragraph summary of the current market positioning of ${projectName} within the crypto landscape, including references to any relevant past events. `,
+    })
+    if (messages.length > 0 && !messages[messages.length - 1]?.content.startsWith("Generate")){
+      setResponse(messages[messages.length - 1]?.content)
+    }
   }
 
   return (
