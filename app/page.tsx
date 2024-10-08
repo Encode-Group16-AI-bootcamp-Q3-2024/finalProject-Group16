@@ -39,7 +39,7 @@ export default function CryptoSentimentAnalysis() {
             <Input
               id="projectName"
               type="text"
-              placeholder="Enter crypto project name (default: DOT)"
+              placeholder="Enter crypto project name (default: BTC)"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               className="w-full"
