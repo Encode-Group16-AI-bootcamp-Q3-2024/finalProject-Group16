@@ -6,37 +6,31 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 
-export default function CryptoVibeCheck() {
-  const [projectName, setProjectName] = useState("")
-  const [response, setResponse] = useState("")
+export default function CryptoSentimentAnalysis() {
+  const [projectName, setProjectName] = useState("DOT")
   const { messages, append, isLoading } = useChat();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (projectName.trim() === "") {
-      setResponse("Please enter a valid project name.")
+      append({
+        role: "assistant",
+        content: "Please enter a valid project name."
+      })
       return
     }
-    // Random example vibes
-    {/*
-    const vibes = ["bullish", "bearish", "neutral", "to the moon", "HODL"]
-    const randomVibe = vibes[Math.floor(Math.random() * vibes.length)]
-    setResponse(`The vibe for ${projectName} is: ${randomVibe}!`)
-    */}
-    // receive response from API
-    append({
+
+    // Send the prompt to the AI
+    await append({
       role: "user",
-      content: `Provide a 2-paragraph summary of the current market positioning of ${projectName} within the crypto landscape, including references to any relevant past events. `,
+      content: `Provide a 2-paragraph summary of the current market positioning of ${projectName} within the crypto landscape, including references to any relevant past events.Provide a detailed sentiment analysis for ${projectName} as described in your instructions.`
     })
-    if (messages.length > 0 && !messages[messages.length - 1]?.content.startsWith("Generate")){
-      setResponse(messages[messages.length - 1]?.content)
-    }
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full">
-        <h1 className="text-3xl font-bold text-center mb-6">Crypto Vibe Check</h1>
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+        <h1 className="text-3xl font-bold text-center mb-6">Crypto Sentiment Analysis</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="projectName" className="text-lg font-medium">
@@ -45,22 +39,24 @@ export default function CryptoVibeCheck() {
             <Input
               id="projectName"
               type="text"
-              placeholder="Enter crypto project name"
+              placeholder="Enter crypto project name (default: DOT)"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               className="w-full"
             />
           </div>
-          <Button type="submit" className="w-full">
-            Check Vibe
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Analyzing..." : "Analyze Sentiment"}
           </Button>
         </form>
-        {response && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-md">
-            <h2 className="text-xl font-semibold mb-2">Vibe Check Result:</h2>
-            <p className="text-lg">{response}</p>
-          </div>
-        )}
+        <div className="mt-6 space-y-4">
+          {messages.map((message, index) => (
+            <div key={index} className={`p-4 rounded-md ${message.role === 'assistant' ? 'bg-blue-100' : 'bg-gray-100'}`}>
+              <p className="font-semibold">{message.role === 'user' ? 'Your Query:' : 'Analysis:'}</p>
+              <div className="mt-2 whitespace-pre-wrap">{message.content}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
