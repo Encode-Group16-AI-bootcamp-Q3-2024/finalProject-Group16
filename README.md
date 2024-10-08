@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Crypto Sentiment Analysis
 
-## Getting Started
+This project is a web application that provides sentiment analysis for cryptocurrency projects. It uses OpenAI's GPT-4 model to analyze sentiment across various sources including social media, market data, and technical analysis.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Sentiment analysis for any cryptocurrency project (default: DOT/Polkadot)
+- Analysis across multiple sources: Twitter, Reddit, and Coinbase
+- Provides a sentiment breakdown, overall sentiment, and investment recommendation
+- Real-time streaming of AI-generated analysis
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Frontend: Next.js with React
+- Backend: Next.js API Routes
+- AI: OpenAI GPT-4
+- Styling: Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Prerequisites
 
-## Learn More
+Before you begin, ensure you have met the following requirements:
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v14 or later)
+- npm or yarn
+- An OpenAI API key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:
 
-## Deploy on Vercel
+   ```git clone https://github.com/Encode-Group16-AI-bootcamp-Q3-2024/finalProject-Group16
+   cd crypto-sentiment-analysis
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install the dependencies:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```npm install
+   ```
+
+   or if you're using yarn:
+
+   ```yarn install
+   ```
+
+3. Create a `.env.local` file in the root directory and add your OpenAI API key:
+
+   ```OPENAI_API_KEY=your_api_key_here
+   ```
+
+## Running the Application
+
+1. Start the development server:
+
+   ```npm run dev
+   ```
+
+   or with yarn:
+
+   ```yarn dev
+   ```
+
+2. Open your browser and navigate to `http://localhost:3000`
+
+## Usage
+
+1. Enter the name of a cryptocurrency project in the input field (default is DOT for Polkadot).
+2. Click the "Analyze Sentiment" button.
+3. Wait for the AI to generate the sentiment analysis.
+4. Review the detailed breakdown of sentiment across different sources, overall sentiment, and investment recommendation.
+
+## Contributing
+
+Contributions to the Crypto Sentiment Analysis project are welcome. Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- OpenAI for providing the GPT-4 model
+- Vercel for Next.js and hosting solutions
+- The open-source community for various tools and libraries used in this project
