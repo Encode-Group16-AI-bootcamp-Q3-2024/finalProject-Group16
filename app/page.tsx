@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 
 export default function CryptoSentimentAnalysis() {
-  const [projectName, setProjectName] = useState("DOT")
+  const [projectName, setProjectName] = useState("")
   const { messages, append, isLoading } = useChat();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,7 +39,7 @@ export default function CryptoSentimentAnalysis() {
             <Input
               id="projectName"
               type="text"
-              placeholder="Enter crypto project name (default: BTC)"
+              placeholder="Enter crypto project name "
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               className="w-full"
