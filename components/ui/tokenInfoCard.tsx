@@ -50,14 +50,14 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-xl p-4">
-      <h2 className="text-xl font-bold">{tokenInfo.name}</h2>
-      <p className="text-2xl font-semibold text-center">Price: ${tokenInfo.price}</p>
-      <p className="text-2xl font-semibold text-center">Market Cap: {tokenInfo.marketCap}</p>
-      <p className="text-2xl font-semibold text-center">24h Volume: {tokenInfo.volume24h}</p>
-      <p className="text-2xl font-semibold text-center">24h Change: {tokenInfo.change24h}</p>
-      <p className="text-2xl font-semibold text-center">24h Change (%): {tokenInfo.changePctDay}</p>
-      <p>Chart placeholder</p>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">{tokenInfo.name}</h2>
+      <p className="text-lg font-semibold text-gray-600 mb-2">Price: <span className="text-green-500">${tokenInfo.price}</span></p>
+      <p className="text-lg font-semibold text-gray-600 mb-2">Market Cap: <span className="text-blue-500">{tokenInfo.marketCap}</span></p>
+      <p className="text-lg font-semibold text-gray-600 mb-2">24h Volume: <span className="text-purple-500">{tokenInfo.volume24h}</span></p>
+      <p className="text-lg font-semibold text-gray-600 mb-2">24h Change: <span className={`text-${parseFloat(tokenInfo.change24h) >= 0 ? 'green' : 'red'}-500`}>{tokenInfo.change24h}</span></p>
+      <p className="text-lg font-semibold text-gray-600 mb-2">24h Change (%): <span className={`text-${parseFloat(tokenInfo.changePctDay) >= 0 ? 'green' : 'red'}-500`}>{tokenInfo.changePctDay}</span></p>
+      <p className="text-center text-gray-500 mt-4">Chart placeholder</p>
     </div>
   );
 };
