@@ -11,18 +11,20 @@ import { Label } from "@/components/ui/label"
 export default function CryptoSentimentAnalysis() {
   const [projectName, setProjectName] = useState("")
   const [projectSymbol, setProjectSymbol] = useState("");
-  const { messages, append, isLoading } = useChat();
+  const { messages, append, isLoading,setMessages } = useChat();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (projectName.trim() === "") {
-      append({
+      setMessages([{
         role: "assistant",
-        content: "Please enter a valid project name."
-      })
+        content: "Please enter a valid project name.",
+        id: ""
+      }]);
       return
     }
-
+ // Clear previous messages
+ setMessages([])
     // Send the prompt to the AI
     await append({
       role: "user",
