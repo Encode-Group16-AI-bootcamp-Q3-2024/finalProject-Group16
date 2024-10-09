@@ -12,7 +12,7 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({ symbol }) => {
       new window.TradingView.widget({
         container_id: containerRef.current,
         autosize: true,
-        symbol: `CRYPTO:${symbol}USD`, // Adjust the symbol format as needed
+        symbol: `CRYPTO:${symbol.toUpperCase()}USD`, // Ensure the symbol is uppercase
         interval: "D",
         timezone: "Etc/UTC",
         theme: "light",
