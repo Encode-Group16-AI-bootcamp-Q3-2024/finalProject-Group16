@@ -34,46 +34,52 @@ export default function CryptoSentimentAnalysis() {
     <div className="min-h-screen bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-center mb-6">Crypto Sentiment Analysis</h1>
-        <TokenInfoCard projectName={projectSymbol} />
-        <TradingViewChart symbol={projectSymbol} />
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="projectSymbol" className="text-lg font-medium">
-              Project Symbol
-            </Label>
-            <Input
-              id="projectSymbol"
-              type="text"
-              placeholder="Enter crypto project symbol"
-              value={projectSymbol}
-              onChange={(e) => setProjectSymbol(e.target.value)}
-              className="w-full"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="projectName" className="text-lg font-medium">
-              Project Name
-            </Label>
-            <Input
-              id="projectName"
-              type="text"
-              placeholder="Enter crypto project name"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              className="w-full"
-            />
-          </div>
-          <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Analyzing..." : "Analyze Sentiment"}
-          </Button>
-        </form>
-        <div className="mt-6 space-y-4">
-          {messages.map((message, index) => (
-            <div key={index} className={`p-4 rounded-md ${message.role === 'assistant' ? 'bg-blue-100' : 'bg-gray-100'}`}>
-              <p className="font-semibold">{message.role === 'user' ? 'Your Query:' : 'Analysis:'}</p>
-              <div className="mt-2 whitespace-pre-wrap">{message.content}</div>
+        <div className="flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+          <div className="flex-1">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="projectSymbol" className="text-lg font-medium">
+                  Project Symbol
+                </Label>
+                <Input
+                  id="projectSymbol"
+                  type="text"
+                  placeholder="Enter crypto project symbol"
+                  value={projectSymbol}
+                  onChange={(e) => setProjectSymbol(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="projectName" className="text-lg font-medium">
+                  Project Name
+                </Label>
+                <Input
+                  id="projectName"
+                  type="text"
+                  placeholder="Enter crypto project name"
+                  value={projectName}
+                  onChange={(e) => setProjectName(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Analyzing..." : "Analyze Sentiment"}
+              </Button>
+            </form>
+            <div className="mt-6 space-y-4">
+              {messages.map((message, index) => (
+                <div key={index} className={`p-4 rounded-md ${message.role === 'assistant' ? 'bg-blue-100' : 'bg-gray-100'}`}>
+                  <p className="font-semibold">{message.role === 'user' ? 'Your Query:' : 'Analysis:'}</p>
+                  <div className="mt-2 whitespace-pre-wrap">{message.content}</div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="flex-1">
+            <TokenInfoCard projectName={projectSymbol} />
+            <TradingViewChart symbol={projectSymbol} />
+          </div>
         </div>
       </div>
     </div>
