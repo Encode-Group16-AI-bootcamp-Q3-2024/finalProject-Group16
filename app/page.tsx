@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useChat } from "ai/react";
+import TokenInfoCard from "@/components/ui/tokenInfoCard"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -31,6 +32,7 @@ export default function CryptoSentimentAnalysis() {
     <div className="min-h-screen bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-center mb-6">Crypto Sentiment Analysis</h1>
+        <TokenInfoCard projectName={projectName} />
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="projectName" className="text-lg font-medium">
