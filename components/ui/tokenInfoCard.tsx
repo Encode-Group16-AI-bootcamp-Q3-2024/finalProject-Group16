@@ -21,28 +21,6 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
             'Authorization': 'Apikey 01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84' // Ensure the API key is prefixed with 'Apikey'
           }
         });
-        const data = await response.json();
-        console.log("API Response:", data); // Log the response to check the structure
-        const tokenData = data.DISPLAY[projectName]?.USD || {};
-        setTokenInfo({
-          name: projectName,
-          price: tokenData.PRICE || "N/A",
-          marketCap: tokenData.MKTCAP || "N/A",
-          volume24h: tokenData.VOLUME24HOURTO || "N/A",
-          change24h: tokenData.CHANGE24HOUR || "N/A",
-          change7d: tokenData.CHANGE7DAY || "N/A",
-          change30d: tokenData.CHANGE30DAY || "N/A",
-        });
-        const data = await response.json();
-        console.log("API Response:", data); // Log the response to check the structure
-        const tokenData = data.DISPLAY[projectName]?.USD || {};
-        setTokenInfo({
-          name: projectName,
-          price: tokenData.PRICE || "N/A",
-          marketCap: tokenData.MKTCAP || "N/A",
-          volume24h: tokenData.VOLUME24HOURTO || "N/A",
-          change24h: tokenData.CHANGE24HOUR || "N/A",
-        });
       } catch (error) {
         console.error("Error fetching token info:", error);
       }
@@ -66,8 +44,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
       <p className="text-2xl font-semibold text-center">24h Change: {tokenInfo.change24h}</p>
       <p className="text-2xl font-semibold text-center">7d Change: {tokenInfo.change7d}</p>
       <p className="text-2xl font-semibold text-center">30d Change: {tokenInfo.change30d}</p>
-        <p>Chart placeholder</p>
-      </div>
+      <p>Chart placeholder</p>
     </div>
   );
 };
