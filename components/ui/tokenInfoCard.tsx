@@ -38,7 +38,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
             changePctDay: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
           });
         } catch (error) {
-          console.error("Error fetching token info:", error);
+          console.error("Error fetching token info:", error)
         }
       }
     };
