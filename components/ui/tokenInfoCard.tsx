@@ -24,6 +24,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
         const tokenData = data.DISPLAY[projectName]?.USD || {};
+        console.log("Image URL:", tokenData.IMAGEURL); // Log the image URL to verify
         setTokenInfo({
           name: projectName,
           price: tokenData.PRICE || "N/A",
