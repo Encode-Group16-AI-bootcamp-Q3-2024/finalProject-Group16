@@ -15,11 +15,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        const response = await fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${projectName}`, {
-          headers: {
-            'X-CMC_PRO_API_KEY': '7c48ddbd-775c-45de-b8d5-399437eb935c'
-          }
-        });
+        const response = await fetch(`http://localhost:3001/api/v1/cryptocurrency/quotes/latest?symbol=${projectName}`);
   
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
