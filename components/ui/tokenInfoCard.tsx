@@ -46,10 +46,10 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   return (
     <div className="bg-white rounded-lg shadow-xl p-4">
       <h2 className="text-xl font-bold">{tokenInfo.name}</h2>
-      <p>Price: ${tokenInfo.price}</p>
-      <p>Market Cap: {tokenInfo.marketCap}</p>
-      <p>24h Volume: {tokenInfo.volume24h}</p>
-      <p>24h Change: {tokenInfo.change24h}</p>
+      <p className="text-2xl font-semibold text-center">Price: ${tokenInfo.price}</p>
+      <p className="text-2xl font-semibold text-center">Market Cap: {tokenInfo.marketCap}</p>
+      <p className="text-2xl font-semibold text-center">24h Volume: {tokenInfo.volume24h}</p>
+      <p className="text-2xl font-semibold text-center">24h Change: {tokenInfo.change24h}</p>
       <div className="w-full h-64 flex items-center justify-center bg-gray-100 rounded-md">
         <p>Chart placeholder</p>
       </div>
