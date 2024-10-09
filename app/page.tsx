@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 
 export default function CryptoSentimentAnalysis() {
   const [projectName, setProjectName] = useState("")
+  const [projectSymbol, setProjectSymbol] = useState("");
   const { messages, append, isLoading } = useChat();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,8 +33,21 @@ export default function CryptoSentimentAnalysis() {
     <div className="min-h-screen bg-gradient-to-b from-purple-600 to-blue-600 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-center mb-6">Crypto Sentiment Analysis</h1>
-        <TokenInfoCard projectName={projectName} />
+        <TokenInfoCard projectName={projectSymbol} />
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="projectSymbol" className="text-lg font-medium">
+              Project Symbol
+            </Label>
+            <Input
+              id="projectSymbol"
+              type="text"
+              placeholder="Enter crypto project symbol"
+              value={projectSymbol}
+              onChange={(e) => setProjectSymbol(e.target.value)}
+              className="w-full"
+            />
+          </div>
           <div className="space-y-2">
             <Label htmlFor="projectName" className="text-lg font-medium">
               Project Name
@@ -41,7 +55,7 @@ export default function CryptoSentimentAnalysis() {
             <Input
               id="projectName"
               type="text"
-              placeholder="Enter crypto project name "
+              placeholder="Enter crypto project name"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
               className="w-full"
