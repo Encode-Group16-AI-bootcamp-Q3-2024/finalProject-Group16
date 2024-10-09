@@ -70,7 +70,7 @@ export default function CryptoSentimentAnalysis() {
               </Button>
             </form>
             <div className="mt-6 space-y-4">
-              {messages.map((message, index) => (
+              {messages.filter(message => message.role === 'assistant').map((message, index) => (
                 <div key={index} className={`p-4 rounded-md ${message.role === 'assistant' ? 'bg-blue-100' : 'bg-gray-100'}`}>
                   <p className="font-semibold">{message.role === 'user' ? 'Your Query:' : 'Analysis:'}</p>
                   <div className="mt-2 whitespace-pre-wrap">{message.content}</div>
