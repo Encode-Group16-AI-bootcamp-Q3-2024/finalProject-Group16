@@ -5,12 +5,32 @@ import { useChat } from "ai/react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { FaDownload, FaShareAlt } from "react-icons/fa";
+import {
+  FaDownload,
+  FaShareAlt,
+  FaChevronDown,
+  FaChevronUp,
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+} from "react-icons/fa";
 import { jsPDF } from "jspdf";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function CryptoSentimentAnalysis() {
   const [projectName, setProjectName] = useState("");
   const { messages, append, isLoading } = useChat();
+  const [collapsedMessages, setCollapsedMessages] = useState<number[]>([]);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+  const [shareContent, setShareContent] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +43,8 @@ export default function CryptoSentimentAnalysis() {
     }
 
     // Send the prompt to the AI
+    const newMessageIndex = messages.length;
+    setCollapsedMessages((prev) => [...prev, newMessageIndex]);
     await append({
       role: "user",
       content: `Provide a detailed analysis of ${projectName} in the crypto landscape, including:
@@ -80,17 +102,56 @@ Please format the response with clear headings, bullet points, and proper spacin
   };
 
   const shareAnalysis = (content: string) => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Crypto Sentiment Analysis",
-          text: content,
-          url: window.location.href,
-        })
-        .catch((error) => console.log("Error sharing", error));
-    } else {
-      console.log("Web Share API not supported");
+    setIsShareModalOpen(true);
+    setShareContent(content);
+  };
+
+  const formatContentForPlatform = (platform: string, content: string) => {
+    const truncate = (str: string, length: number) => {
+      return str.length > length ? str.substring(0, length - 3) + "..." : str;
+    };
+
+    switch (platform) {
+      case "facebook":
+        return truncate(content, 2000);
+      case "twitter":
+        return truncate(content, 280);
+      case "linkedin":
+        return truncate(content, 1300);
+      default:
+        return content;
     }
+  };
+
+  const handleShareOnPlatform = (platform: string) => {
+    setSelectedPlatform(platform);
+    const formattedContent = formatContentForPlatform(platform, shareContent);
+    setShareContent(formattedContent);
+  };
+
+  const publishContent = () => {
+    if (selectedPlatform) {
+      let url = "";
+      switch (selectedPlatform) {
+        case "facebook":
+          url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(shareContent)}`;
+          break;
+        case "twitter":
+          url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareContent)}`;
+          break;
+        case "linkedin":
+          url = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent("Crypto Sentiment Analysis")}&summary=${encodeURIComponent(shareContent)}`;
+          break;
+      }
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+    setIsShareModalOpen(false);
+  };
+
+  const toggleCollapse = (index: number) => {
+    setCollapsedMessages((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index],
+    );
   };
 
   return (
@@ -144,17 +205,69 @@ Please format the response with clear headings, bullet points, and proper spacin
                   </Button>
                 </div>
               )}
-              <p className="font-semibold">
-                {message.role === "user" ? "Your Query:" : "Analysis:"}
-              </p>
               <div
-                className="mt-2 whitespace-pre-wrap prose max-w-none"
-                dangerouslySetInnerHTML={{ __html: message.content }}
-              />
+                className="flex justify-between items-center cursor-pointer"
+                onClick={() => toggleCollapse(index)}
+              >
+                <p className="font-semibold">
+                  {message.role === "user" ? "Your Query:" : "Analysis:"}
+                </p>
+                {message.role === "user" &&
+                  (collapsedMessages.includes(index) ? (
+                    <FaChevronDown />
+                  ) : (
+                    <FaChevronUp />
+                  ))}
+              </div>
+              {(message.role === "assistant" ||
+                !collapsedMessages.includes(index)) && (
+                <div
+                  className="mt-2 whitespace-pre-wrap prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: message.content }}
+                />
+              )}
             </div>
           ))}
         </div>
       </div>
+      <Dialog open={isShareModalOpen} onOpenChange={setIsShareModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Share Analysis</DialogTitle>
+          </DialogHeader>
+          <div className="flex justify-center space-x-4 my-4">
+            <Button onClick={() => handleShareOnPlatform("facebook")}>
+              <FaFacebookF className="mr-2" />
+              Facebook
+            </Button>
+            <Button onClick={() => handleShareOnPlatform("twitter")}>
+              <FaTwitter className="mr-2" />
+              Twitter
+            </Button>
+            <Button onClick={() => handleShareOnPlatform("linkedin")}>
+              <FaLinkedinIn className="mr-2" />
+              LinkedIn
+            </Button>
+          </div>
+          {selectedPlatform && (
+            <div>
+              <Label htmlFor="shareContent">Share Content</Label>
+              <Textarea
+                id="shareContent"
+                value={shareContent}
+                onChange={(e) => setShareContent(e.target.value)}
+                className="mt-2"
+                rows={5}
+              />
+            </div>
+          )}
+          <DialogFooter>
+            <Button onClick={publishContent} disabled={!selectedPlatform}>
+              Publish
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
