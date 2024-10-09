@@ -15,34 +15,32 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        try {
-          const response = await fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${projectName}`, {
-            headers: {
-              'X-CMC_PRO_API_KEY': '7c48ddbd-775c-45de-b8d5-399437eb935c'
-            }
-          });
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const response = await fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${projectName}`, {
+          headers: {
+            'X-CMC_PRO_API_KEY': '7c48ddbd-775c-45de-b8d5-399437eb935c'
           }
-
-          const data = await response.json();
-          console.log("API Response:", data); // Log the response to check the structure
-          const tokenData = data.data[projectName]?.quote?.USD || {};
-          setTokenInfo({
-            name: projectName,
-            price: tokenData.price ? `$${tokenData.price.toFixed(2)}` : "N/A",
-            marketCap: tokenData.market_cap ? `$${tokenData.market_cap.toLocaleString()}` : "N/A",
-            volume24h: tokenData.volume_24h ? `$${tokenData.volume_24h.toLocaleString()}` : "N/A",
-            change24h: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
-            changePctDay: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
-          });
-        } catch (error) {
-          console.error("Error fetching token info:", error);
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+  
+        const data = await response.json();
+        console.log("API Response:", data); // Log the response to check the structure
+        const tokenData = data.data[projectName]?.quote?.USD || {};
+        setTokenInfo({
+          name: projectName,
+          price: tokenData.price ? `$${tokenData.price.toFixed(2)}` : "N/A",
+          marketCap: tokenData.market_cap ? `$${tokenData.market_cap.toLocaleString()}` : "N/A",
+          volume24h: tokenData.volume_24h ? `$${tokenData.volume_24h.toLocaleString()}` : "N/A",
+          change24h: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
+          changePctDay: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
+        });
+      } catch (error) {
+        console.error("Error fetching token info:", error);
       }
     };
-
+  
     if (projectName) {
       fetchTokenInfo();
     }
