@@ -38,6 +38,9 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
+        if (error instanceof TypeError) {
+          console.error("Network error or CORS issue.");
+        }
       }
     };
   
