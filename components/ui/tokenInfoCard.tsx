@@ -57,7 +57,6 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
       <p className="text-lg font-semibold text-gray-600 mb-2">24h Volume: <span className="text-purple-500">{tokenInfo.volume24h}</span></p>
       <p className="text-lg font-semibold text-gray-600 mb-2">24h Change: <span className={`text-${parseFloat(tokenInfo.change24h) >= 0 ? 'green' : 'red'}-500`}>{tokenInfo.change24h}</span></p>
       <p className="text-lg font-semibold text-gray-600 mb-2">24h Change (%): <span className={`text-${parseFloat(tokenInfo.changePctDay) >= 0 ? 'green' : 'red'}-500`}>{tokenInfo.changePctDay}</span></p>
-      <p className="text-center text-gray-500 mt-4">Chart placeholder</p>
     </div>
   );
 };
