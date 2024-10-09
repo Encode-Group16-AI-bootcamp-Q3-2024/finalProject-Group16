@@ -17,7 +17,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
       try {
         const response = await fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${projectName}`, {
           headers: {
-            'X-CMC_PRO_API_KEY': 'your_coinmarketcap_api_key_here'
+            'X-CMC_PRO_API_KEY': '7c48ddbd-775c-45de-b8d5-399437eb935c'
           }
         });
         const data = await response.json();
