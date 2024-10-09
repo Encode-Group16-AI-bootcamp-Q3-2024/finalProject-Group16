@@ -18,9 +18,6 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
           headers: {
             'Authorization': `01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84` // Replace with actual API key if needed
           }
-          marketCap: tokenData.MKTCAP || "N/A",
-          volume24h: tokenData.VOLUME24HOURTO || "N/A",
-          change24h: tokenData.CHANGE24HOUR || "N/A",
         });
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
@@ -28,7 +25,9 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
         setTokenInfo({
           name: projectName,
           price: tokenData.PRICE || "N/A",
-          chartUrl: "", // CryptoCompare API does not provide a chart URL directly
+          marketCap: tokenData.MKTCAP || "N/A",
+          volume24h: tokenData.VOLUME24HOURTO || "N/A",
+          change24h: tokenData.CHANGE24HOUR || "N/A",
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
