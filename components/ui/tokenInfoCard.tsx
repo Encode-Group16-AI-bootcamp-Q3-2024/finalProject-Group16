@@ -6,8 +6,8 @@ interface TokenInfo {
   marketCap: string;
   volume24h: string;
   change24h: string;
-  change7d: string;
-  change30d: string;
+  changePctDay: string;
+  imageUrl: string;
 }
 
 const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
@@ -30,8 +30,8 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
           marketCap: tokenData.MKTCAP || "N/A",
           volume24h: tokenData.VOLUME24HOURTO || "N/A",
           change24h: tokenData.CHANGE24HOUR || "N/A",
-          change7d: tokenData.CHANGE7DAY || "N/A",
-          change30d: tokenData.CHANGE30DAY || "N/A",
+          changePctDay: tokenData.CHANGEPCTDAY || "N/A",
+          imageUrl: tokenData.IMAGEURL || "",
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
@@ -51,11 +51,11 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
     <div className="bg-white rounded-lg shadow-xl p-4">
       <h2 className="text-xl font-bold">{tokenInfo.name}</h2>
       <p className="text-2xl font-semibold text-center">Price: ${tokenInfo.price}</p>
+      <img src={tokenInfo.imageUrl} alt={`${tokenInfo.name} logo`} className="mx-auto my-4" />
       <p className="text-2xl font-semibold text-center">Market Cap: {tokenInfo.marketCap}</p>
       <p className="text-2xl font-semibold text-center">24h Volume: {tokenInfo.volume24h}</p>
       <p className="text-2xl font-semibold text-center">24h Change: {tokenInfo.change24h}</p>
-      <p className="text-2xl font-semibold text-center">7d Change: {tokenInfo.change7d}</p>
-      <p className="text-2xl font-semibold text-center">30d Change: {tokenInfo.change30d}</p>
+      <p className="text-2xl font-semibold text-center">24h Change (%): {tokenInfo.changePctDay}</p>
       <p>Chart placeholder</p>
     </div>
   );
