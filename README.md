@@ -1,6 +1,6 @@
-# Crypto Sentiment Analysis
+# Crypto Sentiment Analysis with TradingView Chart
 
-This project is a web application that provides sentiment analysis for cryptocurrency projects. It uses OpenAI's GPT-4 model to analyze sentiment across various sources including social media, market data, and technical analysis.
+This project is a web application that provides sentiment analysis for cryptocurrency projects and includes a real-time TradingView chart. It uses OpenAI's GPT-4 model to analyze sentiment across various sources including social media, market data, and technical analysis.
 
 ## Features
 
@@ -8,6 +8,7 @@ This project is a web application that provides sentiment analysis for cryptocur
 - Analysis across multiple sources: Twitter, Reddit, and Coinbase
 - Provides a sentiment breakdown, overall sentiment, and investment recommendation
 - Real-time streaming of AI-generated analysis
+- Interactive TradingView chart for visualizing cryptocurrency price data
 
 ## Tech Stack
 
@@ -15,6 +16,7 @@ This project is a web application that provides sentiment analysis for cryptocur
 - Backend: Next.js API Routes
 - AI: OpenAI GPT-4
 - Styling: Tailwind CSS
+- Charting: TradingView Widget API
 
 ## Prerequisites
 
@@ -28,11 +30,11 @@ Before you begin, ensure you have met the following requirements:
 
 1. Clone the repository:
 
-   ```git clone https://github.com/Encode-Group16-AI-bootcamp-Q3-2024/finalProject-Group16
+  ```git clone https://github.com/Encode-Group16-AI-bootcamp-Q3-2024/finalProject-Group16
    cd crypto-sentiment-analysis
    ```
 
-2. Install the dependencies:
+2.Install the dependencies:
 
    ```npm install
    ```
@@ -42,7 +44,7 @@ Before you begin, ensure you have met the following requirements:
    ```yarn install
    ```
 
-3. Create a `.env.local` file in the root directory and add your OpenAI API key:
+3.Create a `.env.local` file in the root directory and add your OpenAI API key:
 
    ```OPENAI_API_KEY=your_api_key_here
    ```
@@ -67,6 +69,34 @@ Before you begin, ensure you have met the following requirements:
 2. Click the "Analyze Sentiment" button.
 3. Wait for the AI to generate the sentiment analysis.
 4. Review the detailed breakdown of sentiment across different sources, overall sentiment, and investment recommendation.
+5. Interact with the TradingView chart to visualize price data for the selected cryptocurrency.
+
+## TradingView Chart Component
+
+The project includes a TradingView chart component (`TradingViewChart.tsx`) that provides real-time price data visualization for the selected cryptocurrency.
+
+Key features of the TradingView chart:
+
+- Automatically loads and displays chart for the selected cryptocurrency
+- Supports symbol changes, allowing users to view different cryptocurrencies
+- Includes various chart tools and indicators
+- Displays relevant news headlines
+
+To use the TradingView chart in your component:
+
+```jsx
+import TradingViewChart from './path/to/TradingViewChart';
+
+function YourComponent() {
+  return (
+    <div>
+      <TradingViewChart symbol="BTC" />
+    </div>
+  );
+}
+```
+
+Replace "BTC" with the symbol of the cryptocurrency you want to display.
 
 ## Contributing
 
@@ -79,5 +109,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgements
 
 - OpenAI for providing the GPT-4 model
+- TradingView for their charting widget
 - Vercel for Next.js and hosting solutions
 - The open-source community for various tools and libraries used in this project
