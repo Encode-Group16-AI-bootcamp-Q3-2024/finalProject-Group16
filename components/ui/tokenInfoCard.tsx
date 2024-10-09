@@ -15,22 +15,21 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${projectName}&tsyms=USD`, {
+        const response = await fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${projectName}`, {
           headers: {
-            'Authorization': 'Apikey 01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84' // Ensure the API key is prefixed with 'Apikey'
+            'X-CMC_PRO_API_KEY': 'your_coinmarketcap_api_key_here'
           }
         });
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
-        const tokenData = data.DISPLAY[projectName]?.USD || {};
-        console.log("Image URL:", tokenData.IMAGEURL); // Log the image URL to verify
+        const tokenData = data.data[projectName]?.quote?.USD || {};
         setTokenInfo({
           name: projectName,
-          price: tokenData.PRICE || "N/A",
-          marketCap: tokenData.MKTCAP || "N/A",
-          volume24h: tokenData.VOLUME24HOURTO || "N/A",
-          change24h: tokenData.CHANGE24HOUR || "N/A",
-          changePctDay: tokenData.CHANGEPCTDAY || "N/A",
+          price: tokenData.price ? `$${tokenData.price.toFixed(2)}` : "N/A",
+          marketCap: tokenData.market_cap ? `$${tokenData.market_cap.toLocaleString()}` : "N/A",
+          volume24h: tokenData.volume_24h ? `$${tokenData.volume_24h.toLocaleString()}` : "N/A",
+          change24h: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
+          changePctDay: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
