@@ -8,11 +8,11 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({ symbol }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (containerRef.current && window.TradingView) {
-      new window.TradingView.widget({
-        container_id: containerRef.current,
+    if (containerRef.current && (window as any).TradingView) {
+      new (window as any).TradingView.widget({
+        container_id: containerRef.current.id, // Use a string ID
         autosize: true,
-        symbol: `CRYPTO:${symbol.toUpperCase()}USD`, // Ensure the symbol is uppercase
+        symbol: `CRYPTO:${symbol.toUpperCase()}USD`,
         interval: "D",
         timezone: "Etc/UTC",
         theme: "light",
@@ -26,10 +26,13 @@ const TradingViewChart: React.FC<TradingViewChartProps> = ({ symbol }) => {
         calendar: true,
         news: ["headlines"],
       });
+    } else {
+      console.error("TradingView is not available");
     }
   }, [symbol]);
-
-  return <div ref={containerRef} style={{ height: "500px" }} />;
+  
+  return <div ref={containerRef} id="tradingview-container" style={{ height: "500px", width: "100%" }} />;
+  
 };
 
 export default TradingViewChart;
