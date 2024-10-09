@@ -12,17 +12,18 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${projectName}`, {
+        const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${projectName}&tsyms=USD`, {
           headers: {
-            'Authorization': `Bearer YOUR_API_KEY_HERE` // Replace with actual API key if needed
+            'Authorization': `Apikey YOUR_API_KEY_HERE` // Replace with actual API key if needed
           }
         });
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
+        const tokenData = data.DISPLAY[projectName]?.USD || {};
         setTokenInfo({
-          name: data.name || "Unknown",
-          price: data.price || 0,
-          chartUrl: data.chartUrl || "", // Adjust based on actual response structure
+          name: projectName,
+          price: tokenData.PRICE || "N/A",
+          chartUrl: "", // CryptoCompare API does not provide a chart URL directly
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
