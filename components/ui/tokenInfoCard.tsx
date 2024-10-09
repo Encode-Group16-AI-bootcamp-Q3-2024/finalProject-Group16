@@ -15,7 +15,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/v1/cryptocurrency/quotes/latest?symbol=${projectName}`);
+        const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${projectName}&tsyms=USD`);
   
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,14 +23,14 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
   
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
-        const tokenData = data.data[projectName]?.quote?.USD || {};
+        const tokenData = data.DISPLAY[projectName]?.USD || {};
         setTokenInfo({
           name: projectName,
-          price: tokenData.price ? `$${tokenData.price.toFixed(2)}` : "N/A",
-          marketCap: tokenData.market_cap ? `$${tokenData.market_cap.toLocaleString()}` : "N/A",
-          volume24h: tokenData.volume_24h ? `$${tokenData.volume_24h.toLocaleString()}` : "N/A",
-          change24h: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
-          changePctDay: tokenData.percent_change_24h ? `${tokenData.percent_change_24h.toFixed(2)}%` : "N/A",
+          price: tokenData.PRICE || "N/A",
+          marketCap: tokenData.MKTCAP || "N/A",
+          volume24h: tokenData.VOLUME24HOURTO || "N/A",
+          change24h: tokenData.CHANGE24HOUR || "N/A",
+          changePctDay: tokenData.CHANGEPCT24HOUR || "N/A",
         });
       } catch (error) {
         console.error("Error fetching token info:", error);
