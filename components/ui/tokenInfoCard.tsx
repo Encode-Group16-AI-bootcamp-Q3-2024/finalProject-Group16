@@ -18,7 +18,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
       try {
         const response = await fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${projectName}&tsyms=USD`, {
           headers: {
-            'Authorization': `01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84` // Replace with actual API key if needed
+            'Authorization': 'Apikey 01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84' // Ensure the API key is prefixed with 'Apikey'
           }
           change7d: tokenData.CHANGE7D || "N/A",
           change30d: tokenData.CHANGE30D || "N/A",
