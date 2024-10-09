@@ -33,6 +33,7 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
           change7d: tokenData.CHANGE7DAY || "N/A",
           change30d: tokenData.CHANGE30DAY || "N/A",
         });
+      } catch (error) {
         console.error("Error fetching token info:", error);
       }
     };
