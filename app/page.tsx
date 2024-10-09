@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useChat } from "ai/react";
 import TokenInfoCard from "@/components/ui/tokenInfoCard"
+import TradingViewChart from "@/components/ui/TradingViewChart"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -34,6 +35,7 @@ export default function CryptoSentimentAnalysis() {
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
         <h1 className="text-3xl font-bold text-center mb-6">Crypto Sentiment Analysis</h1>
         <TokenInfoCard projectName={projectSymbol} />
+        <TradingViewChart symbol={projectSymbol} />
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="projectSymbol" className="text-lg font-medium">
