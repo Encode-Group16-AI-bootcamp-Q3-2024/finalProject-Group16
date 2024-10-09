@@ -18,6 +18,9 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
           headers: {
             'Authorization': `01165d1e453c3e743afc0eca2cf41d95926250749bc5f3abcf6c289a20eebb84` // Replace with actual API key if needed
           }
+          marketCap: tokenData.MKTCAP || "N/A",
+          volume24h: tokenData.VOLUME24HOURTO || "N/A",
+          change24h: tokenData.CHANGE24HOUR || "N/A",
         });
         const data = await response.json();
         console.log("API Response:", data); // Log the response to check the structure
@@ -45,7 +48,12 @@ const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
     <div className="bg-white rounded-lg shadow-xl p-4">
       <h2 className="text-xl font-bold">{tokenInfo.name}</h2>
       <p>Price: ${tokenInfo.price}</p>
-      <iframe src={tokenInfo.chartUrl} title="Token Chart" className="w-full h-64"></iframe>
+      <p>Market Cap: {tokenInfo.marketCap}</p>
+      <p>24h Volume: {tokenInfo.volume24h}</p>
+      <p>24h Change: {tokenInfo.change24h}</p>
+      <div className="w-full h-64 flex items-center justify-center bg-gray-100 rounded-md">
+        <p>Chart placeholder</p>
+      </div>
     </div>
   );
 };
