@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 
 interface TokenInfo {
   name: string;
-  price: number;
-  chartUrl: string;
+  price: string;
+  marketCap: string;
+  volume24h: string;
+  change24h: string;
 }
 
 const TokenInfoCard: React.FC<{ projectName: string }> = ({ projectName }) => {
